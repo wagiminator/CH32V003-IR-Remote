@@ -70,7 +70,7 @@ While no button is pressed, the CH32V003 stays in standby power-down mode, consu
 
 ![IR_Remote_current.png](https://raw.githubusercontent.com/wagiminator/CH32V003-IR-Remote/main/documentation/IR_Remote_current.png)
 
-When sending a NEC telegram, the current consumption averages around 3mA for 71ms. In theory, a single battery could send almost 4 million telegrams. However, rechargeable LIR2032 batteries have a much lower capacity.
+When sending a NEC telegram, the current consumption averages around 5mA for 71ms. In theory, a single battery could send more than 2 million telegrams. However, rechargeable LIR2032 batteries have a much lower capacity.
 
 By the way, although 9µA in standby mode seems low, the [ATtiny13A](https://github.com/wagiminator/ATtiny13-TinyRemote) uses only about 150nA, which is 60 times less!
 
@@ -146,6 +146,9 @@ If you have installed [Python3](https://www.pythontutorial.net/getting-started/i
 ```
 python3 tools/rvprog.py -f bin/ir_remote.bin
 ```
+
+## Power Cycle Erase
+The firmware uses the MCU's standby mode and a very low clock frequency to save energy. However, this can make it impossible to reprogram the chip using the single-wire debug interface. If that happens, you will need to perform a power cycle erase ("unbrick") with your programming software. This is not necessary when using the Python tool *rvprog.py*, as it automatically detects the issue and performs a power cycle on its own.
 
 # References, Links and Notes
 - [EasyEDA Design Files](https://oshwlab.com/wagiminator)
