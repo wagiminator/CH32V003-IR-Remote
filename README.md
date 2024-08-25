@@ -14,6 +14,12 @@ For the ATtiny13A-based version of the IR remote control visit [TinyRemote](http
 ## The CH32V003 Family of 32-bit RISC-V Microcontrollers
 The CH32V003 series is a collection of industrial-grade general-purpose microcontrollers that utilize the QingKe RISC-V2A core design supporting the RV32EC instruction set. These microcontrollers are equipped with various features such as a 48MHz system main frequency, 16KB flash, 2KB SRAM, 2.7V - 5.5V supply voltage support, a single-wire serial debug interface, low power consumption, and an ultra-small package. Additionally, the CH32V003 series includes a built-in set of components including a DMA controller, a 10-bit ADC, op-amp comparators, multiple timers, and standard communication interfaces such as USART, I2C, and SPI.
 
+## Building Instructions
+1. Take the Gerber files (the *zip* file inside the *hardware* folder) and upload them to a PCB (printed circuit board) manufacturer of your choice (e.g., [JLCPCB](https://jlcpcb.com/)). They will use these files to create the circuit board for your device and send it to you.
+2. Once you have the PCB, you can start soldering the components onto it. Use the BOM (bill of materials) and schematic as a guide to make sure everything is connected correctly. You can find the corresponding files in the *hardware* folder.
+3. Upload the firmware by following the instructions in the next section (see below).
+4. To create the case for your device, use the *stl* files in the *3dprint* folder with your 3D printer.
+
 # Software
 There are various communication protocols for infrared remote controls, most of which use a carrier wave between 30kHz and 58kHz, depending on the protocol. This carrier wave is generated using pulse-width modulation (PWM) at the IR diode, helping the receiver distinguish the signal from noise. The IR signal is modulated onto the carrier wave using pulse code modulation (PCM) by turning the IR LED on and off in a specific pattern. The telegrams consist of a start frame, the receiver's device address, and the command for the key pressed. This IR Remote Control implements the four most widely used protocols:
 
@@ -122,11 +128,6 @@ pip install rvprog
 Remove the battery from the device. Connect the IR Remote Control via the 3-pin PROG header to the WCH-LinkE programming device. Do not press any button on the remote control while the programmer is connected! Open a terminal and navigate to the folder with the makefile. Run the following command to compile and upload:
 ```
 make flash
-```
-
-If you want to just upload the pre-compiled binary, run the following command instead:
-```
-rvprog -f bin/ir_remote.bin
 ```
 
 ### Other Operating Systems
